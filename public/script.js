@@ -1,35 +1,36 @@
-/*
- to respond to the submit button
-*/
 function solve(){
-    // access the form defined in index and create a form data object using FormData()
+
     const form = document.getElementById('input_form');
     const formData = new FormData(form);
-     // get the name of the celebrant
-    console.log(formData.get("name"));
-    const name = formData.get('name');
-  
-    // get and checks the gender
-    console.log(formData.get('gender'));
-    let gender = formData.get('gender');
-
-  
-    /* Use the songs below needed in this exercise:
-    
-    the Good Fellow replacing blanks with either he's or she's
-    
-    For ______ a jolly good fellow. For _______ a jolly good fellow. For ________ a jolly good fellow, which nobody can deny!
-
-    The Happy Birthday, replacing the blank with the name of the celebrant
-
-  Happy birthday to you. Happy birthday to you. Happy birthday dear ________. Happy birthday to you!`.split(' ');
  
-    */
+    const name = formData.get('name')
+    let gender = formData.get('gender');
+    const guests = formData.getAll('guests');
 
+    if (!name || !gender || !guess.length === 0) {
+     alert("Please input an answer to all of these needed details; Celebrant's name, gender, and at least one guest.")
+     return;
+    }
 
-  
+    let pronoun = gender === "male" ? "he's: : she's;
+    const happyBirthday = `Happy birthday to you. Happy birthday to you. Happy birthday dear ${name}. Happy birthday to you!`.split('')
+    const goodFellow = `For ${name} a jolly good fellow. For ${name} a jolly good fellow. For ${name} a jolly good fellow, which nobody can deny!`;
+
+    let output = "";
+    let index = 0;
+
+    while (index < guests.length || index < happyBirthday.length) {
+     let singer = guests[index % guests.length];
+     let word =happyBirthday[index % happyBirthday.length];
+     output += `{singer}: {word} <br>`;
+     index ++
+    }
+
+    output += `<br><strong>${goodFellow.replace(/_/g, pronoun)}</strong>`;
+
+    document.getElementById('output').innerHTML = output;\
 }
-
+ 
   // PLEASE STUDY THE CODES BELOW, BUT DO NOT CHANGE ANYTHING 
 
   // this function will create the needed input fields and corresponding Going checkboxes for the number of expected guests
